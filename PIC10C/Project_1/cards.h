@@ -43,9 +43,12 @@ class Card {
       string get_english_suit() const;
       string get_english_rank() const; 
 
+	  //should have return value
+
       // Converts card rank to number.
       // The possible returns are: 1, 2, 3, 4, 5, 6, 7, 10, 11 and 12
       int get_rank() const;
+	  float get_value(rank_t rank) const;
 
       // Compare rank of two cards. E.g: Eight<Jack is true.
       // Assume Ace is always 1. 
@@ -61,21 +64,23 @@ private:
 class Hand {
    public:
       // A vector of Cards
-      Hand();
-
+	   Hand();
+	   void add(Card* new_card);
+	   float getTotal() const;
       // You decide what functions you'll need...
 
    private:
+	   vector<Card*> m_hand;
       // You decide what fields you'll need...
 };
 
 
 class Player {
    public:
-      // Constructor. 
+	   Player();// Constructor.
       //    Assigns initial amount of money
-      Player(int m);
-
+	   Player(int m) { money = m; };
+	//   float current_amount();
       // You decide what functions you'll need...
 
    private:

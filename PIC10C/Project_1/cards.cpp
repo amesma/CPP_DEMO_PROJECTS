@@ -8,7 +8,6 @@ You might or might not need these two extra libraries
 #include <algorithm>
 */
 
-
 /* *************************************************
    Card class
    ************************************************* */
@@ -45,6 +44,15 @@ Card::Card(){
    }
 }
 
+float Card::get_value(rank_t rank) const {
+	if (get_rank() <= 7) {
+		return get_rank();
+	}
+	else
+	{
+		return 0.5;
+	}
+}
 // Accessor: returns a string with the suit of the card in Spanish 
 string Card::get_spanish_suit() const { 
    string suitName;
@@ -187,11 +195,26 @@ Hand::Hand()
    ************************************************* */
 // Implemente the member functions of the Hand class here.
 Player::Player(){
-	
+	money = 100;
 }
+
+/*float Player::current_amount() {
+
+}*/
 
 
 /* *************************************************
    Player class
    ************************************************* */
 // Implemente the member functions of the Player class here.
+//4 end state: dealer bust and player doesnt, player bust and dealer doesnt, both bust, both lose
+int main() {
+	
+	bool gameCont = false;
+
+	while (gameCont == true)
+	{
+
+	}
+	return 0;
+}
