@@ -64,9 +64,12 @@ class Hand {
       Hand();
 
       // You decide what functions you'll need...
+      float get_value() const;
 
    private:
       // You decide what fields you'll need...
+      std::vector<Card> hand;
+      float value;
 };
 
 
