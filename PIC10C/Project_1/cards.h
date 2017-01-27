@@ -48,7 +48,7 @@ class Card {
       // Converts card rank to number.
       // The possible returns are: 1, 2, 3, 4, 5, 6, 7, 10, 11 and 12
       int get_rank() const;
-	  float get_value(rank_t rank) const;
+	  float get_value() const;
 
       // Compare rank of two cards. E.g: Eight<Jack is true.
       // Assume Ace is always 1. 
@@ -66,11 +66,19 @@ class Hand {
       // A vector of Cards
 	   Hand();
 	   void add(Card* new_card);
-	   float getTotal() const;
+	   void add_card();
+	   float get_total() const;
+	   void clear();
       // You decide what functions you'll need...
 
+	   //memory management
+	   ~Hand() {
+		   for (auto& x : card_hand)
+			   delete x;
+	   }
+
    private:
-	   vector<Card*> m_hand;
+	   vector<Card*> card_hand;
       // You decide what fields you'll need...
 };
 
@@ -80,12 +88,31 @@ class Player {
 	   Player();// Constructor.
       //    Assigns initial amount of money
 	   Player(int m) { money = m; };
+	   virtual bool hit() const;
+	   virtual bool bust() const;
 	//   float current_amount();
       // You decide what functions you'll need...
-
+	   virtual ~Player();
    private:
       int money;
       // You decide what extra fields (if any) you'll need...
 };
 
+class Game {
+
+public:
+	Game();
+	void play();
+
+private:
+
+};
+
+class Dealer:public Player {
+
+};
+
+class GameUser :public Player {
+
+};
 #endif

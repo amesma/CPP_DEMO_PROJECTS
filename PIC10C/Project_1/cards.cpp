@@ -44,7 +44,7 @@ Card::Card(){
    }
 }
 
-float Card::get_value(rank_t rank) const {
+float Card::get_value() const {
 	if (get_rank() <= 7) {
 		return get_rank();
 	}
@@ -193,14 +193,58 @@ Hand::Hand()
 /* *************************************************
    Hand class
    ************************************************* */
+void Hand::add(Card* new_card) {
+	card_hand.push_back(new_card);
+}
+
+void Hand::add_card() {
+	add(new Card());
+}
+
+float Hand::get_total() const{
+
+	float total;
+
+	if (card_hand.empty() == true)
+	{
+		return 0;
+	}
+	else
+	{
+		vector<Card*>::const_iterator iter;
+		for (iter = card_hand.begin(); iter != card_hand.end(); ++iter)
+		{
+			total += (*iter)->get_value();
+		}
+	}
+	return total;
+}
+
+void Hand::clear()
+{
+	vector<Card*>::const_iterator iter;
+	for (iter = card_hand.begin(); iter != card_hand.end(); ++i)
+	{
+		delete *iter;
+	}
+}
 // Implemente the member functions of the Hand class here.
 Player::Player(){
 	money = 100;
 }
 
+Player::~Player() {
+
+}
 /*float Player::current_amount() {
 
 }*/
+bool Player::hit() const{
+
+}
+bool Player::bust() const {
+
+}
 
 
 /* *************************************************
