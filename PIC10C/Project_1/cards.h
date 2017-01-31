@@ -66,7 +66,6 @@ class Hand {
       // A vector of Cards
 	   Hand();
 	   void add(Card* new_card);
-	   void add_card();
 	   float get_total() const;
 	   void clear();
       // You decide what functions you'll need...
@@ -77,25 +76,34 @@ class Hand {
 			   delete x;
 	   }
 
-   private:
+   protected:
 	   vector<Card*> card_hand;
       // You decide what fields you'll need...
 };
 
 
-class Player {
+class Player:public Hand{
    public:
 	   Player();// Constructor.
       //    Assigns initial amount of money
 	   Player(int m) { money = m; };
-	   virtual bool hit() const;
-	   virtual bool bust() const;
+	   virtual bool hit() const = 0;
+	   bool bust() const;
+	   void bust_state() const;
 	//   float current_amount();
       // You decide what functions you'll need...
 	   virtual ~Player();
-   private:
+   protected:
       int money;
       // You decide what extra fields (if any) you'll need...
+};
+class Deck :public Hand {
+public:
+	Deck();
+	virtual ~Deck();
+
+	void deal(Hand& a_hand);
+	void add_cards(Player& player);
 };
 
 class Game {
@@ -103,16 +111,32 @@ class Game {
 public:
 	Game();
 	void play();
+	~Game();
+	//hand should contain additional cards loop
 
 private:
+	Deck deck;
+	Dealer dealer;
+	GameUser user;
 
 };
 
 class Dealer:public Player {
-
+public:
+	virtual ~Dealer();
+	virtual bool hit() const;
 };
 
 class GameUser :public Player {
+public:
+	virtual ~GameUser();
+	virtual bool hit() const;
+	int return_win() const;
+	void win();
+	void tie() const;
+
+private:
+	int win_count;
 
 };
 #endif
