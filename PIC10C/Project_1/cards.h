@@ -2,6 +2,10 @@
    Ricardo Salazar, February 26, 2015
 
    Interface of a simple Card class
+   
+   modified by Ames Ma
+   
+   MK_FP
    ************************************* */
 
 #include <string>
@@ -131,7 +135,7 @@ class GameUser :public Player {
 public:
 	virtual ~GameUser();
 	virtual bool hit() const;
-	int return_win() const;
+	int return_win();
 	void win();
 	void tie() const;
 
