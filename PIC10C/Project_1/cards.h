@@ -134,7 +134,8 @@ public:
 class GameUser :public Player {
 public:
 	virtual ~GameUser();
-	virtual bool hit() const;
+	//here is the error
+	bool hit() const;
 	int return_win() const;
 	void win();
 	void tie() const;
