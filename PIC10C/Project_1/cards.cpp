@@ -8,7 +8,6 @@ You might or might not need these two extra libraries
 #include <algorithm>
 */
 
-
 /* *************************************************
    Card class
    ************************************************* */
@@ -45,6 +44,15 @@ Card::Card(){
    }
 }
 
+float Card::get_value() const {
+	if (get_rank() <= 7) {
+		return get_rank();
+	}
+	else
+	{
+		return 0.5;
+	}
+}
 // Accessor: returns a string with the suit of the card in Spanish 
 string Card::get_spanish_suit() const { 
    string suitName;
@@ -185,13 +193,131 @@ Hand::Hand()
 /* *************************************************
    Hand class
    ************************************************* */
-// Implemente the member functions of the Hand class here.
-Player::Player(){
-	
+void Hand::add(Card* new_card) {
+	card_hand.push_back(new_card);
 }
 
+float Hand::get_total() const{
 
+	float total;
+
+	if (card_hand.empty() == true)
+	{
+		return 0;
+	}
+	else
+	{
+		vector<Card*>::const_iterator iter;
+		for (iter = card_hand.begin(); iter != card_hand.end(); ++iter)
+		{
+			total += (*iter)->get_value();
+		}
+	}
+	return total;
+}
+
+void Hand::clear()
+{
+	vector<Card*>::const_iterator iter;
+	for (iter = card_hand.begin(); iter != card_hand.end(); ++i)
+	{
+		delete *iter;
+	}
+}
+Deck::Deck() {
+
+}
+Deck::~Deck() {
+
+}
+void Deck::deal(Hand& a_hand)
+{
+		a_hand.add(card_hand.back());
+		card_hand.pop_back();
+}
+void Deck::add_cards(Player& player) {
+	while (!(player.bust()) && player.hit())
+	{
+		deal(player);
+		//cout << aGenericPlayer << endl;
+
+		if (player.bust())
+			player.bust_state();
+	}
+}
+// Implemente the member functions of the Hand class here.
+Player::Player(){
+	money = 100;
+}
+
+Player::~Player() {
+
+}
+/*float Player::current_amount() {
+
+}*/
+bool Player::hit() const{
+	cout << "Do you want another card(y / n) ?";
+	char response;
+	cin >> response;
+	return (response == 'y' || response == 'Y');
+
+	//should bet and also add new card
+}
+bool Player::bust() const {
+	return (get_total() > 7.5);
+}
+void Player::bust_state() const {
+	cout << "Too bad. You lost " << money << " dollars.";
+	cout << endl;
+}
+GameUser::GameUser() {
+	win_count = 0;
+}
+GameUser::~GameUser() {
+
+}
+void GameUser::win() {
+	win_count++;
+}
+void GameUser::tie() const {
+	cout << "Nobody wins!";
+}
+int GameUser::return_win() const{
+	return win_count;
+}
+Dealer::Dealer() {
+
+}
+Dealer::~Dealer() {
+
+}
+bool Dealer::hit() const {
+	return(get_total() < 5.5);
+}
+Game::Game() {
+	//initialize dealer and user
+}
+
+Game::~Game() {
+
+}
+
+void Game::play() {
+	//deal to player and house
+}
 /* *************************************************
    Player class
    ************************************************* */
 // Implemente the member functions of the Player class here.
+//4 end state: dealer bust and player doesnt, player bust and dealer doesnt, both bust, both lose
+int main() {
+	
+	bool gameCont = false;
+
+	while (gameCont == true)
+	{
+
+	}
+	return 0;
+}
