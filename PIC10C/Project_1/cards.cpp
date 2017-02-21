@@ -44,6 +44,11 @@ Card::Card(){
    }
 }
 
+std::ostream& operator<<(std::ostream&os, const Card& card) {
+	os << card.get_english_rank() << " of " << card.get_english_suit();
+	return os;
+}
+
 float Card::get_value() const {
 	if (get_rank() <= 7) {
 		return get_rank();
@@ -54,8 +59,8 @@ float Card::get_value() const {
 	}
 }
 // Accessor: returns a string with the suit of the card in Spanish 
-string Card::get_spanish_suit() const { 
-   string suitName;
+std::string Card::get_spanish_suit() const { 
+   std::string suitName;
    switch (suit) {
       case OROS: 
          suitName = "oros"; 
@@ -75,8 +80,8 @@ string Card::get_spanish_suit() const {
 }
 
 // Accessor: returns a string with the rank of the card in Spanish 
-string Card::get_spanish_rank() const { 
-   string rankName;
+std::string Card::get_spanish_rank() const { 
+   std::string rankName;
    switch (rank) {
       case AS:
          rankName = "As"; 
@@ -114,8 +119,8 @@ string Card::get_spanish_rank() const {
 }
 // Accessor: returns a string with the suit of the card in English 
 // This is just a stub! Modify it to your liking.
-string Card::get_english_suit() const {
-   string suitName;
+std::string Card::get_english_suit() const {
+   std::string suitName;
    switch (suit) {
       case OROS: 
          suitName = "coins"; 
@@ -136,8 +141,8 @@ string Card::get_english_suit() const {
 
 // Accessor: returns a string with the rank of the card in English 
 // This is just a stub! Modify it to your liking.
-string Card::get_english_rank() const { 
-   string rankName;
+std::string Card::get_english_rank() const { 
+   std::string rankName;
    switch (rank) {
       case AS:
          rankName = "One"; 
@@ -188,7 +193,7 @@ bool Card::operator < (Card card2) const {
 
 Hand::Hand()
 {
-	
+	card_hand.reserve(1);
 }
 /* *************************************************
    Hand class
@@ -207,7 +212,7 @@ float Hand::get_total() const{
 	}
 	else
 	{
-		vector<Card*>::const_iterator iter;
+		std::vector<Card*>::const_iterator iter;
 		for (iter = card_hand.begin(); iter != card_hand.end(); ++iter)
 		{
 			total += (*iter)->get_value();
@@ -218,14 +223,20 @@ float Hand::get_total() const{
 
 void Hand::clear()
 {
-	vector<Card*>::const_iterator iter;
-	for (iter = card_hand.begin(); iter != card_hand.end(); ++i)
+	std::vector<Card*>::const_iterator iter;
+	for (iter = card_hand.begin(); iter != card_hand.end(); ++iter)
 	{
 		delete *iter;
 	}
 }
 Deck::Deck() {
+	make_deck();
+}
 
+void Deck::make_deck() {
+	for (size_t i = 0; i < 52; ++i) {
+		add(new Card());
+	}
 }
 Deck::~Deck() {
 
@@ -239,7 +250,7 @@ void Deck::add_cards(Player& player) {
 	while (!(player.bust()) && player.hit())
 	{
 		deal(player);
-		//cout << aGenericPlayer << endl;
+		//cout << Player << endl;
 
 		if (player.bust())
 			player.bust_state();
@@ -257,9 +268,9 @@ Player::~Player() {
 
 }*/
 bool Player::hit() const{
-	cout << "Do you want another card(y / n) ?";
+	std::cout << "Do you want another card(y / n) ?";
 	char response;
-	cin >> response;
+	std::cin >> response;
 	return (response == 'y' || response == 'Y');
 
 	//should bet and also add new card
@@ -268,8 +279,8 @@ bool Player::bust() const {
 	return (get_total() > 7.5);
 }
 void Player::bust_state() const {
-	cout << "Too bad. You lost " << money << " dollars.";
-	cout << endl;
+	std::cout << "Too bad. You lost " << money << " dollars.";
+	std::cout << std::endl;
 }
 GameUser::GameUser() {
 	win_count = 0;
@@ -277,11 +288,18 @@ GameUser::GameUser() {
 GameUser::~GameUser() {
 
 }
+bool GameUser::hit() const {
+	char rspd;
+	std::cout << "Do you want to hit? (Y/N)";
+	std::cin >> rspd;
+	return (rspd == 'Y');
+}
+
 void GameUser::win() {
 	win_count++;
 }
 void GameUser::tie() const {
-	cout << "Nobody wins!";
+	std::cout << "Nobody wins!";
 }
 int GameUser::return_win() const{
 	return win_count;
@@ -297,6 +315,7 @@ bool Dealer::hit() const {
 }
 Game::Game() {
 	//initialize dealer and user
+	deck.make_deck();
 }
 
 Game::~Game() {
@@ -305,6 +324,19 @@ Game::~Game() {
 
 void Game::play() {
 	//deal to player and house
+	deck.deal(user);
+	deck.deal(dealer);
+
+	deck.add_cards(user);
+	deck.add_cards(dealer);
+
+	if (dealer.bust())
+	{
+		user.win();
+		//may need pointer
+	}
+	user.clear();
+	dealer.clear();
 }
 /* *************************************************
    Player class
@@ -312,12 +344,5 @@ void Game::play() {
 // Implemente the member functions of the Player class here.
 //4 end state: dealer bust and player doesnt, player bust and dealer doesnt, both bust, both lose
 int main() {
-	
-	bool gameCont = false;
-
-	while (gameCont == true)
-	{
-
-	}
 	return 0;
 }

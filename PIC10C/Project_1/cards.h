@@ -15,8 +15,6 @@
 #ifndef CARDS_H
 #define CARDS_H
 
-using namespace std;
-
 enum suit_t {OROS, COPAS, ESPADAS, BASTOS};
 
    /*
@@ -35,17 +33,19 @@ class Card {
       // Constructor assigns random rank & suit to card.
       Card();
       
+	  //outstream operator overload
+	  friend std::ostream&operator <<(std::ostream&os, const Card&  card);
       // Accessors 
-      string get_spanish_suit() const;
-      string get_spanish_rank() const; 
+      std::string get_spanish_suit() const;
+      std::string get_spanish_rank() const; 
 
       /* 
          These are the only functions you'll need to code 
          for this class. See the implementations of the two 
 	 functions above to get an idea of how to proceed.
       */
-      string get_english_suit() const;
-      string get_english_rank() const; 
+      std::string get_english_suit() const;
+      std::string get_english_rank() const; 
 
 	  //should have return value
 
@@ -75,13 +75,13 @@ class Hand {
       // You decide what functions you'll need...
 
 	   //memory management
-	   ~Hand() {
+	   virtual ~Hand() {
 		   for (auto& x : card_hand)
 			   delete x;
 	   }
 
    protected:
-	   vector<Card*> card_hand;
+	   std::vector<Card*> card_hand;
       // You decide what fields you'll need...
 };
 
@@ -107,7 +107,31 @@ public:
 	virtual ~Deck();
 
 	void deal(Hand& a_hand);
+	void make_deck();
 	void add_cards(Player& player);
+};
+
+class Dealer:public Player {
+public:
+	virtual ~Dealer();
+	virtual bool hit() const;
+	Dealer();
+
+};
+
+class GameUser :public Player {
+public:
+	GameUser();
+	virtual ~GameUser();
+	//here is the error
+	virtual bool hit() const;
+	int return_win() const;
+	void win();
+	void tie() const;
+
+private:
+	int win_count;
+
 };
 
 class Game {
@@ -122,26 +146,6 @@ private:
 	Deck deck;
 	Dealer dealer;
 	GameUser user;
-
-};
-
-class Dealer:public Player {
-public:
-	virtual ~Dealer();
-	virtual bool hit() const;
-};
-
-class GameUser :public Player {
-public:
-	virtual ~GameUser();
-	//here is the error
-	bool hit() const;
-	int return_win() const;
-	void win();
-	void tie() const;
-
-private:
-	int win_count;
 
 };
 #endif
