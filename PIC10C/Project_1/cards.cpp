@@ -58,12 +58,8 @@ std::ostream& operator<<(std::ostream& os, const Player& player)
 		{
 			os << *(*cards) << "\t";
 		}
-
-		if (player.get_total() != 0)
-		{
-			std::cout << "(" << player.get_total() << ")";
-		}
 	}
+	return os;
 }
 
 float Card::get_value() const {
@@ -212,6 +208,10 @@ Hand::Hand()
 {
 	card_hand.reserve(1);
 }
+Hand::~Hand()
+{
+	clear();
+}
 /* *************************************************
    Hand class
    ************************************************* */
@@ -221,29 +221,28 @@ void Hand::add(Card* new_card) {
 
 float Hand::get_total() const{
 
-	float total;
+	float total = 0;
 
 	if (card_hand.empty() == true)
 	{
 		return 0;
 	}
-	else
-	{
+	
 		std::vector<Card*>::const_iterator iter;
 		for (iter = card_hand.begin(); iter != card_hand.end(); ++iter)
 		{
 			total += (*iter)->get_value();
 		}
-	}
 	return total;
 }
 
 void Hand::clear()
 {
-	std::vector<Card*>::const_iterator iter;
+	std::vector<Card*>::iterator iter;
 	for (iter = card_hand.begin(); iter != card_hand.end(); ++iter)
 	{
 		delete *iter;
+		*iter = nullptr;
 	}
 }
 Deck::Deck() {
@@ -260,17 +259,24 @@ Deck::~Deck() {
 }
 void Deck::deal(Hand& a_hand)
 {
+
+	if (card_hand.size() > 1)
+	{
 		a_hand.add(card_hand.back());
 		card_hand.pop_back();
+	}
 }
 void Deck::add_cards(Player& player) {
+
 	while (!(player.bust()) && player.hit())
 	{
 		deal(player);
-		//cout << Player << endl;
-
+		
 		if (player.bust())
+		{
 			player.bust_state();
+			std::cout << "true";
+		}
 	}
 }
 // Implemente the member functions of the Hand class here.
@@ -286,15 +292,15 @@ float Player::current_amount() {
 	return money;
 }
 bool Player::hit() {
-	std::cout << "Do you want another card(y / n) ?";
+
+	std::cout << "Do you want another card? (Y/N) ";
 	char response;
 	std::cin >> response;
 	return (response == 'y' || response == 'Y');
-
 	//should bet and also add new card
 }
 bool Player::bust() const {
-	return (get_total() > 7.5);
+	return(get_total() > 7.5);
 }
 void Player::bust_state(){
 	std::cout << "Too bad. You lost ";
@@ -302,18 +308,21 @@ void Player::bust_state(){
 	money -= bet;
 	std::cout << std::endl;
 }
-GameUser::GameUser() {
-	win_count = 0;
+
+int GameUser::ret_money() const{
+	return money;
+}
+
+int GameUser::ret_bet() const {
+	return bet;
 }
 GameUser::~GameUser() {
 
 }
 bool GameUser::hit(){
-	std::cout << "You have $" << money << "\t Enter a bet:";
-	std::cin >> bet;
 
 	char rspd;
-	std::cout << "Do you want to hit? (Y/N)";
+	std::cout << "Do you want to hit? (Y/N) ";
 	std::cin >> rspd;
 	return (rspd == 'Y');
 }
@@ -328,6 +337,11 @@ void GameUser::tie() const {
 }
 int GameUser::return_win() const{
 	return win_count;
+}
+
+void GameUser::enter_bet(int new_bet)
+{
+	bet = new_bet;
 }
 Dealer::Dealer() {
 
@@ -359,9 +373,32 @@ bool Game::no_money() {
 }
 
 void Game::play() {
+
+	if (user.ret_bet() == 0)
+	{
+		int bet;
+		std::cout << "You have $" << user.ret_money() << "\t Enter a bet:";
+		std::cin >> bet;
+		user.enter_bet(bet);
+	}
+
 	//deal to player and house
 	deck.deal(user);
 	deck.deal(dealer);
+
+	std::cout << user << std::endl;
+
+	if (user.get_total() != 0)
+	{
+		std::cout << "Your total is (" << user.get_total() << ")" << std::endl;
+	}
+
+	std::cout << dealer << std::endl;
+
+	if (dealer.get_total() != 0)
+	{
+		std::cout << "Dealer's total is (" << dealer.get_total() << ")" << std::endl;
+	}
 
 	deck.add_cards(user);
 	deck.add_cards(dealer);
@@ -379,7 +416,9 @@ void Game::play() {
 				user.win();
 			}
 			else if (user.get_total() < dealer.get_total())
+			{
 				user.bust_state();
+			}
 		}
 	}
 
@@ -404,9 +443,8 @@ int main() {
 		{
 			game_play = false;
 		}
-
-		std::cout << "You have $0.GAME OVER! Come back when you have more money.";
-		std::cout << "Bye!";
 	}
+	std::cout << "You have $0. GAME OVER! Come back when you have more money.";
+	std::cout << "Bye!";
 	return 0;
 }

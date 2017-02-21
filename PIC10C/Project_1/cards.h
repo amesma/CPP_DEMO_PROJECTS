@@ -75,10 +75,7 @@ public:
       // You decide what functions you'll need...
 
 	   //memory management
-	   virtual ~Hand() {
-		   for (auto& x : card_hand)
-			   delete x;
-	   }
+	   virtual ~Hand();
 
    protected:
 	   std::vector<Card*> card_hand;
@@ -123,16 +120,21 @@ public:
 
 class GameUser :public Player {
 public:
-	GameUser();
+	GameUser() :bet(0), money(100) { win_count = 0; };
 	virtual ~GameUser();
 	//here is the error
 	virtual bool hit();
 	int return_win() const;
 	void win();
 	void tie() const;
+	int ret_money() const;
+	int ret_bet() const;
+	void enter_bet(int new_bet);
 
 private:
 	int win_count;
+	int money;
+	int bet;
 
 };
 
