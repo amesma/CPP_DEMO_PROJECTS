@@ -44,9 +44,26 @@ Card::Card(){
    }
 }
 
-std::ostream& operator<<(std::ostream&os, const Card& card) {
-	os << card.get_english_rank() << " of " << card.get_english_suit();
+std::ostream& operator<<(std::ostream& os, const Card& card) {
+	os << card.get_spanish_rank() << " de " << card.get_spanish_suit() << "    (" << card.get_english_rank() << " of " << card.get_english_suit() << ")";
 	return os;
+}
+
+std::ostream& operator<<(std::ostream& os, const Player& player)
+{
+	std::vector <Card*>::const_iterator cards;
+	if (!(player.card_hand.empty()))
+	{
+		for (cards = player.card_hand.begin(); cards != player.card_hand.end(); ++cards)
+		{
+			os << *(*cards) << "\t";
+		}
+
+		if (player.get_total() != 0)
+		{
+			std::cout << "(" << player.get_total() << ")";
+		}
+	}
 }
 
 float Card::get_value() const {
@@ -259,15 +276,16 @@ void Deck::add_cards(Player& player) {
 // Implemente the member functions of the Hand class here.
 Player::Player(){
 	money = 100;
+	bet = 0;
 }
 
 Player::~Player() {
 
 }
-/*float Player::current_amount() {
-
-}*/
-bool Player::hit() const{
+float Player::current_amount() {
+	return money;
+}
+bool Player::hit() {
 	std::cout << "Do you want another card(y / n) ?";
 	char response;
 	std::cin >> response;
@@ -278,8 +296,10 @@ bool Player::hit() const{
 bool Player::bust() const {
 	return (get_total() > 7.5);
 }
-void Player::bust_state() const {
-	std::cout << "Too bad. You lost " << money << " dollars.";
+void Player::bust_state(){
+	std::cout << "Too bad. You lost ";
+	std::cout << bet << " dollars.";
+	money -= bet;
 	std::cout << std::endl;
 }
 GameUser::GameUser() {
@@ -288,7 +308,10 @@ GameUser::GameUser() {
 GameUser::~GameUser() {
 
 }
-bool GameUser::hit() const {
+bool GameUser::hit(){
+	std::cout << "You have $" << money << "\t Enter a bet:";
+	std::cin >> bet;
+
 	char rspd;
 	std::cout << "Do you want to hit? (Y/N)";
 	std::cin >> rspd;
@@ -296,6 +319,8 @@ bool GameUser::hit() const {
 }
 
 void GameUser::win() {
+	std::cout << "You win " << bet;
+	money += bet;
 	win_count++;
 }
 void GameUser::tie() const {
@@ -310,7 +335,7 @@ Dealer::Dealer() {
 Dealer::~Dealer() {
 
 }
-bool Dealer::hit() const {
+bool Dealer::hit(){
 	return(get_total() < 5.5);
 }
 Game::Game() {
@@ -320,6 +345,17 @@ Game::Game() {
 
 Game::~Game() {
 
+}
+
+bool Game::no_money() {
+	if (user.current_amount() <= 0)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
 
 void Game::play() {
@@ -333,8 +369,21 @@ void Game::play() {
 	if (dealer.bust())
 	{
 		user.win();
-		//may need pointer
 	}
+	else
+	{
+		if (!user.bust())
+		{
+			if (user.get_total() > dealer.get_total())
+			{
+				user.win();
+			}
+			else if (user.get_total() < dealer.get_total())
+				user.bust_state();
+		}
+	}
+
+	//destroys cards
 	user.clear();
 	dealer.clear();
 }
@@ -344,5 +393,20 @@ void Game::play() {
 // Implemente the member functions of the Player class here.
 //4 end state: dealer bust and player doesnt, player bust and dealer doesnt, both bust, both lose
 int main() {
+
+	bool game_play = true;
+	Game new_game = Game();
+	
+	while (game_play == true)
+	{
+		new_game.play();
+		if (new_game.no_money() == true)
+		{
+			game_play = false;
+		}
+
+		std::cout << "You have $0.GAME OVER! Come back when you have more money.";
+		std::cout << "Bye!";
+	}
 	return 0;
 }

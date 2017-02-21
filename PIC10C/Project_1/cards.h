@@ -66,8 +66,8 @@ private:
 
 
 class Hand {
-   public:
       // A vector of Cards
+public:
 	   Hand();
 	   void add(Card* new_card);
 	   float get_total() const;
@@ -86,19 +86,21 @@ class Hand {
 };
 
 
-class Player:public Hand{
+class Player:public Hand {
    public:
 	   Player();// Constructor.
       //    Assigns initial amount of money
 	   Player(int m) { money = m; };
-	   virtual bool hit() const = 0;
+	   virtual bool hit() = 0;
 	   bool bust() const;
-	   void bust_state() const;
-	//   float current_amount();
+	   void bust_state();
+		float current_amount();
+		friend std::ostream&operator <<(std::ostream& os, const Player& player);
       // You decide what functions you'll need...
 	   virtual ~Player();
    protected:
       int money;
+	  int bet;
       // You decide what extra fields (if any) you'll need...
 };
 class Deck :public Hand {
@@ -114,7 +116,7 @@ public:
 class Dealer:public Player {
 public:
 	virtual ~Dealer();
-	virtual bool hit() const;
+	virtual bool hit();
 	Dealer();
 
 };
@@ -124,7 +126,7 @@ public:
 	GameUser();
 	virtual ~GameUser();
 	//here is the error
-	virtual bool hit() const;
+	virtual bool hit();
 	int return_win() const;
 	void win();
 	void tie() const;
@@ -140,6 +142,7 @@ public:
 	Game();
 	void play();
 	~Game();
+	bool no_money();
 	//hand should contain additional cards loop
 
 private:
