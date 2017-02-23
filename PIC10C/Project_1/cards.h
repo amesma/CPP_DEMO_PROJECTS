@@ -32,9 +32,9 @@ class Card {
    public: 
       // Constructor assigns random rank & suit to card.
       Card();
-      
+	  Card(suit_t t, rank_t r) :suit(t), rank(r) {};
 	  //outstream operator overload
-	  friend std::ostream&operator <<(std::ostream&os, const Card&  card);
+	  friend std::ostream&operator <<(std::ostream&os, const Card& card);
       // Accessors 
       std::string get_spanish_suit() const;
       std::string get_spanish_rank() const; 
@@ -84,20 +84,20 @@ public:
 
 
 class Player:public Hand {
+
+	friend std::ostream&operator <<(std::ostream& os, const Player& player);
+
    public:
 	   Player();// Constructor.
       //    Assigns initial amount of money
-	   Player(int m) { money = m; };
 	   virtual bool hit() = 0;
-	   bool bust() const;
-	   void bust_state();
-		float current_amount();
-		friend std::ostream&operator <<(std::ostream& os, const Player& player);
+	   virtual bool bust() const;
+	   virtual void bust_state();
+
       // You decide what functions you'll need...
 	   virtual ~Player();
    protected:
-      int money;
-	  int bet;
+   
       // You decide what extra fields (if any) you'll need...
 };
 class Deck :public Hand {
@@ -114,27 +114,34 @@ class Dealer:public Player {
 public:
 	virtual ~Dealer();
 	virtual bool hit();
+	virtual void bust_state();
 	Dealer();
 
 };
 
 class GameUser :public Player {
 public:
-	GameUser() :bet(0), money(100) { win_count = 0; };
+	GameUser();
 	virtual ~GameUser();
 	//here is the error
 	virtual bool hit();
 	int return_win() const;
-	void win();
+	virtual void win();
 	void tie() const;
-	int ret_money() const;
-	int ret_bet() const;
+	virtual int ret_bet() const;
+	float current_amount() const;
+	void win_bet();
+	void lose_bet();
+	virtual void bust_state();
 	void enter_bet(int new_bet);
+	void reset(bool truth);
+	bool new_game() const;
 
-private:
+protected:
 	int win_count;
 	int money;
 	int bet;
+	bool n_game;
 
 };
 
