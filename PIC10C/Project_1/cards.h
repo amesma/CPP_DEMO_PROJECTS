@@ -94,6 +94,7 @@ class Player:public Hand {
 	   virtual bool bust() const;
 	   virtual void bust_state();
 	   virtual std::string get_name() const;
+	   virtual std::string whose_cards() const;
       // You decide what functions you'll need...
 	   virtual ~Player();
    protected:
@@ -116,6 +117,7 @@ public:
 	virtual bool hit();
 	virtual void bust_state();
 	virtual std::string get_name() const;
+	std::string whose_cards() const;
 	Dealer();
 protected:
 	std::string name;
@@ -140,6 +142,7 @@ public:
 	void reset(bool truth);
 	bool new_game() const;
 	std::string get_name() const;
+	std::string whose_cards() const;
 
 protected:
 	int win_count;

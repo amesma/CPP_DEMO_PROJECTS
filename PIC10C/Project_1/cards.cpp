@@ -60,17 +60,17 @@ std::ostream& operator<<(std::ostream& os, const Player& player)
 		for (cards = player.card_hand.begin(); cards != player.card_hand.end(); ++cards)
 		{
 			if (*cards != nullptr)
-				os << *(*cards) << "\t";
+				os << "\t" << *(*cards) << "\n";
 		}
 		if (pPlayer->get_total() != 0)
 		{
 			std::cout << std::endl;
-			std::cout << pPlayer->get_name() << " total is (" << pPlayer->get_total() << ")" << std::endl;
+			std::cout << pPlayer->get_name() << " total is " << pPlayer->get_total() << ".";
 		}
 	}
 	else
 	{
-		os << "no cards";
+		os << "There are no cards.";
 	}
 	return os;
 }
@@ -286,10 +286,11 @@ void Deck::add_cards(Player& player) {
 	while (!(pPlayer->bust()) && pPlayer->hit())
 	{
 		deal(player);
+		std::cout << pPlayer->whose_cards() << std::endl;
 		std::cout << player << std::endl;
 		if (pPlayer->bust())
 		{
-			pPlayer->bust_state();
+			//pPlayer->bust_state();
 		}
 	}
 
@@ -300,6 +301,17 @@ Player::Player(){
 
 Player::~Player() {
 
+}
+std::string Player::whose_cards() const {
+	return "";
+}
+
+std::string GameUser::whose_cards() const {
+	return "Your cards: ";
+}
+
+std::string Dealer::whose_cards() const {
+	return "Dealer's cards: ";
 }
 
 std::string Player::get_name() const {
@@ -359,13 +371,13 @@ bool GameUser::hit(){
 	char rspd;
 	std::cout << "Do you want another card? (Y/N) ";
 	std::cin >> rspd;
-	std::cout << std::endl;
 	return (rspd == 'Y' || rspd == 'y');
 }
 
 void GameUser::win() {
 	win_bet();
 	std::cout << "You win $" << bet << ".";
+	std::cout << std::endl;
 	reset(true);
 	win_count++;
 }
@@ -433,7 +445,7 @@ void Game::play() {
 	if (pUser->new_game() == true)
 	{
 		int bet;
-		std::cout << "You have $" << pUser->current_amount() << "\t Enter a bet: ";
+		std::cout << "You have $" << pUser->current_amount() << ".\t Enter a bet: ";
 		std::cin >> bet;
 		pUser->enter_bet(bet);
 	}
@@ -442,15 +454,16 @@ void Game::play() {
 	deck.deal(user);
 	deck.deal(dealer);
 
-	std::cout << "Your cards:" << std::endl;
+
+	std::cout << "Your cards: " << std::endl;
 	std::cout << user << std::endl;
-
-	std::cout << "Dealer's cards:" << std::endl;
-	std::cout << dealer << std::endl;
-
 	deck.add_cards(user);
+	//should show cards and hit, if no hit or if lose: show dealer!!! and then lose state;
+
+	std::cout << dealer << std::endl;
 	deck.add_cards(dealer);
 
+	
 	if (dealer.bust())
 	{
 		std::cout << std::endl;
@@ -460,21 +473,24 @@ void Game::play() {
 	}
 	else
 	{
-		if (!user.bust())
+		if (!pUser->bust())
 		{
-			if (user.get_total() > dealer.get_total())
+			if (pUser->get_total() > dealer.get_total())
 			{
-				user.win();
+				pUser->win();
 			}
-			else if (user.get_total() < dealer.get_total())
+			else if (pUser->get_total() < dealer.get_total())
 			{
-				user.bust_state();
+				//pUser->bust_state();
 			}
+		}
+		else {
+			pUser->bust_state();
 		}
 	}
 
 	//destroys cards
-	user.clear();
+	pUser->clear();
 	dealer.clear();
 }
 /* *************************************************
