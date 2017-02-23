@@ -93,11 +93,11 @@ class Player:public Hand {
 	   virtual bool hit() = 0;
 	   virtual bool bust() const;
 	   virtual void bust_state();
-
+	   virtual std::string get_name() const;
       // You decide what functions you'll need...
 	   virtual ~Player();
    protected:
-   
+	std::string name;
       // You decide what extra fields (if any) you'll need...
 };
 class Deck :public Hand {
@@ -115,7 +115,10 @@ public:
 	virtual ~Dealer();
 	virtual bool hit();
 	virtual void bust_state();
+	virtual std::string get_name() const;
 	Dealer();
+protected:
+	std::string name;
 
 };
 
@@ -136,12 +139,14 @@ public:
 	void enter_bet(int new_bet);
 	void reset(bool truth);
 	bool new_game() const;
+	std::string get_name() const;
 
 protected:
 	int win_count;
 	int money;
 	int bet;
 	bool n_game;
+	std::string name;
 
 };
 

@@ -54,6 +54,7 @@ std::ostream& operator<<(std::ostream& os, const Card& card) {
 std::ostream& operator<<(std::ostream& os, const Player& player)
 {
 	std::vector <Card*>::const_iterator cards;
+	const Player *pPlayer = &player;
 	if (!(player.card_hand.empty()))
 	{
 		for (cards = player.card_hand.begin(); cards != player.card_hand.end(); ++cards)
@@ -61,10 +62,10 @@ std::ostream& operator<<(std::ostream& os, const Player& player)
 			if (*cards != nullptr)
 				os << *(*cards) << "\t";
 		}
-		if (player.get_total() != 0)
+		if (pPlayer->get_total() != 0)
 		{
 			std::cout << std::endl;
-			std::cout << "The total is (" << player.get_total() << ")" << std::endl;
+			std::cout << pPlayer->get_name() << " total is (" << pPlayer->get_total() << ")" << std::endl;
 		}
 	}
 	else
@@ -300,6 +301,17 @@ Player::Player(){
 Player::~Player() {
 
 }
+
+std::string Player::get_name() const {
+	return name;
+}
+std::string GameUser::get_name() const {
+	return name;
+}
+std::string Dealer::get_name() const {
+	return name;
+}
+
 float GameUser::current_amount() const{
 	return money;
 }
@@ -327,6 +339,7 @@ GameUser::GameUser() {
 	money = 100;
 	bet = 0;
 	n_game = true;
+	name = "Your";
 
 }
 void GameUser::win_bet() {
@@ -383,7 +396,7 @@ bool GameUser::new_game() const {
 }
 
 Dealer::Dealer() {
-
+	name = "Dealer's";
 }
 Dealer::~Dealer() {
 
