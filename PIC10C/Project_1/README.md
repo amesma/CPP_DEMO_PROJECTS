@@ -43,6 +43,10 @@ For this assignment, assume the player starts with 100 pesos (or dollars) and th
 
 
 
-Test cases: None currently, no interface for user.
+Test cases:
+1.Enter N first.
+2. Enter Y three times.
+3. Enter letter other than Y or N.
+4. Enter number.
 
-Known bugs: Code currently compiles but no main game loop has been implemented.
+Known bugs: Code does not produce log file or show you cards one at a time, only all the cards a user has at once.
