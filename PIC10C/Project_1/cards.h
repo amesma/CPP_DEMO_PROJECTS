@@ -73,6 +73,7 @@ public:
 	   float get_total() const;
 	   void clear();
       // You decide what functions you'll need...
+      float get_value() const;
 
 	   //memory management
 	   virtual ~Hand();
@@ -80,6 +81,8 @@ public:
    protected:
 	   std::vector<Card*> card_hand;
       // You decide what fields you'll need...
+      std::vector<Card> hand;
+      float value;
 };
 
 
@@ -105,7 +108,6 @@ class Deck :public Hand {
 public:
 	Deck();
 	virtual ~Deck();
-
 	void deal(Hand& a_hand);
 	void make_deck();
 	void add_cards(Player& player);
@@ -169,3 +171,4 @@ private:
 
 };
 #endif
+
