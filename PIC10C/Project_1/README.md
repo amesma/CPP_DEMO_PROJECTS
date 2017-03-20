@@ -50,7 +50,9 @@ Program should quit.
 No matter what cards are, should either restart game when you lose, or keep going.
 3. Enter letter other than Y or N.
 Should have no effect until you enter Y or N.
-4. Enter number.
+4. Enter number when asked to enter Y or N. This should only loop when it is not the user's first time being asked that.
 Should have no effect until you enter Y or N.
 
 Known bugs: Code does not produce log file or show you cards one at a time, only all the cards a user has at once.
+
+Code structured based on: http://hawkee.com/snippet/7632/
