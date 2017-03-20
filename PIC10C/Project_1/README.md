@@ -45,8 +45,12 @@ For this assignment, assume the player starts with 100 pesos (or dollars) and th
 
 Test cases:
 1.Enter N first.
+Program should quit.
 2. Enter Y three times.
+No matter what cards are, should either restart game when you lose, or keep going.
 3. Enter letter other than Y or N.
+Should have no effect until you enter Y or N.
 4. Enter number.
+Should have no effect until you enter Y or N.
 
 Known bugs: Code does not produce log file or show you cards one at a time, only all the cards a user has at once.
