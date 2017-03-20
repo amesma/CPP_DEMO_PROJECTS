@@ -54,7 +54,7 @@ std::ostream& operator<<(std::ostream& os, const Card& card) {
 std::ostream& operator<<(std::ostream& os, const Player& player)
 {
 	std::vector <Card*>::const_iterator cards;
-	const Player *pPlayer = &player;
+	const Player *point_play = &player;
 	if (!(player.card_hand.empty()))
 	{
 		for (cards = player.card_hand.begin(); cards != player.card_hand.end(); ++cards)
@@ -62,10 +62,10 @@ std::ostream& operator<<(std::ostream& os, const Player& player)
 			if (*cards != nullptr)
 				os << "\t" << *(*cards) << "\n";
 		}
-		if (pPlayer->get_total() != 0)
+		if (point_play->get_total() != 0)
 		{
 			std::cout << std::endl;
-			std::cout << pPlayer->get_name() << " total is " << pPlayer->get_total() << ".";
+			std::cout << point_play->get_name() << " total is " << point_play->get_total() << ".";
 		}
 	}
 	else
@@ -281,16 +281,16 @@ void Deck::deal(Hand& a_hand)
 }
 void Deck::add_cards(Player& player) {
 
-	Player *pPlayer = &player;
+	Player *point_play = &player;
 
-	while (!(pPlayer->bust()) && pPlayer->hit())
+	while (!(point_play->bust()) && point_play->hit())
 	{
 		deal(player);
-		std::cout << pPlayer->whose_cards() << std::endl;
+		std::cout << point_play->whose_cards() << std::endl;
 		std::cout << player << std::endl;
-		if (pPlayer->bust())
+		if (point_play->bust())
 		{
-			//pPlayer->bust_state();
+			point_play->bust_state();
 		}
 	}
 
@@ -331,8 +331,11 @@ float GameUser::current_amount() const{
 bool Player::hit() {
 
 	std::cout << "Do you want another card? (Y/N) ";
-	char response;
-	std::cin >> response;
+	char response = '0';
+	while (response != 'y' || response != 'Y' || response != 'N' || response == 'n')
+	{
+		std::cin >> response;
+	}
 	return (response == 'y' || response == 'Y');
 	//should bet and also add new card
 }
@@ -440,14 +443,14 @@ bool Game::no_money() {
 
 void Game::play() {
 
-	GameUser *pUser = &user;
+	GameUser *point_user = &user;
 
-	if (pUser->new_game() == true)
+	if (point_user->new_game() == true)
 	{
 		int bet;
-		std::cout << "You have $" << pUser->current_amount() << ".\t Enter a bet: ";
+		std::cout << "You have $" << point_user->current_amount() << ".\t Enter a bet: ";
 		std::cin >> bet;
-		pUser->enter_bet(bet);
+		point_user->enter_bet(bet);
 	}
 
 	//deal to player and house
@@ -467,30 +470,31 @@ void Game::play() {
 	if (dealer.bust())
 	{
 		std::cout << std::endl;
-		if (!pUser->bust()) {
-			pUser->win();
+		if (!point_user->bust()) {
+			point_user->win();
 		}
 	}
 	else
 	{
-		if (!pUser->bust())
+		if (!point_user->bust())
 		{
-			if (pUser->get_total() > dealer.get_total())
+			if (point_user->get_total() > dealer.get_total())
 			{
-				pUser->win();
+				point_user->win();
 			}
-			else if (pUser->get_total() < dealer.get_total())
+			else if (point_user->get_total() < dealer.get_total())
 			{
-				//pUser->bust_state();
+				point_user->bust_state();
+				
 			}
 		}
 		else {
-			pUser->bust_state();
+			point_user->bust_state();
 		}
 	}
 
 	//destroys cards
-	pUser->clear();
+	point_user->clear();
 	dealer.clear();
 }
 /* *************************************************

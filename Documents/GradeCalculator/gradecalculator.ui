@@ -1,0 +1,547 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>GradeCalculator</class>
+ <widget class="QWidget" name="GradeCalculator">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>515</width>
+    <height>464</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>GradeCalculator</string>
+  </property>
+  <widget class="QLabel" name="course_label">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>20</y>
+     <width>55</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Course:</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="course_name_box">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>20</y>
+     <width>321</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="currentIndex">
+    <number>0</number>
+   </property>
+   <item>
+    <property name="text">
+     <string>PIC10B Intermediate Programming</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>PIC10C Advanced Programming</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QWidget" name="gridLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>60</y>
+     <width>221</width>
+     <height>371</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="hw_layout">
+    <item row="2" column="3">
+     <widget class="QSpinBox" name="spin3"/>
+    </item>
+    <item row="5" column="0">
+     <widget class="QLabel" name="label_6">
+      <property name="text">
+       <string>HW 6</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="3">
+     <widget class="QSpinBox" name="spin2"/>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="label_3">
+      <property name="text">
+       <string>HW 3</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QLabel" name="label_4">
+      <property name="text">
+       <string>HW 4</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="3">
+     <widget class="QSpinBox" name="spin4"/>
+    </item>
+    <item row="4" column="0">
+     <widget class="QLabel" name="label_5">
+      <property name="text">
+       <string>HW 5</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="2">
+     <widget class="QSlider" name="slide4">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="2">
+     <widget class="QSlider" name="slide3">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="2">
+     <widget class="QSlider" name="slide2">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="hw2">
+      <property name="text">
+       <string>HW 2</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="2">
+     <widget class="QSlider" name="slide1">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QLabel" name="hw1">
+      <property name="text">
+       <string>HW 1</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="3">
+     <widget class="QSpinBox" name="spin1"/>
+    </item>
+    <item row="6" column="0">
+     <widget class="QLabel" name="label_7">
+      <property name="text">
+       <string>HW 7</string>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="0">
+     <widget class="QLabel" name="label_8">
+      <property name="text">
+       <string>HW 8</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="2">
+     <widget class="QSlider" name="slide5">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="2">
+     <widget class="QSlider" name="slide6">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="2">
+     <widget class="QSlider" name="slide7">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="2">
+     <widget class="QSlider" name="slide8">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="3">
+     <widget class="QSpinBox" name="spin5"/>
+    </item>
+    <item row="5" column="3">
+     <widget class="QSpinBox" name="spin6"/>
+    </item>
+    <item row="6" column="3">
+     <widget class="QSpinBox" name="spin7"/>
+    </item>
+    <item row="7" column="3">
+     <widget class="QSpinBox" name="spin8"/>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="verticalLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>280</x>
+     <y>60</y>
+     <width>211</width>
+     <height>261</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <property name="spacing">
+     <number>5</number>
+    </property>
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>15</number>
+    </property>
+    <property name="bottomMargin">
+     <number>15</number>
+    </property>
+    <item>
+     <widget class="QLabel" name="midterm1_label">
+      <property name="text">
+       <string>Midterm 1</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QSlider" name="midterm1_slider">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QSpinBox" name="midterm1_spin"/>
+    </item>
+    <item>
+     <widget class="QLabel" name="midterm2_label">
+      <property name="text">
+       <string>Midterm 2</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QSlider" name="midterm2_slider">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QSpinBox" name="midterm2_spin"/>
+    </item>
+    <item>
+     <widget class="QLabel" name="final_label">
+      <property name="text">
+       <string>Final</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QSlider" name="final_slider">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QSpinBox" name="final_spin"/>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="gridLayoutWidget_2">
+   <property name="geometry">
+    <rect>
+     <x>280</x>
+     <y>340</y>
+     <width>211</width>
+     <height>101</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="grade_layout">
+    <item row="1" column="0">
+     <widget class="QRadioButton" name="schema_b">
+      <property name="text">
+       <string>Schema B</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="score_label">
+      <property name="text">
+       <string>Overall Score:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QRadioButton" name="schema_a">
+      <property name="text">
+       <string>Schema A</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QLabel" name="final_score_label">
+      <property name="text">
+       <string>0.0</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>slide2</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>spin2</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>144</x>
+     <y>131</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>215</x>
+     <y>132</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spin2</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>slide2</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>233</x>
+     <y>134</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>163</x>
+     <y>137</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>slide3</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>spin3</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>165</x>
+     <y>183</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>210</x>
+     <y>183</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spin3</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>slide3</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>222</x>
+     <y>183</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>139</x>
+     <y>183</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>slide4</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>spin4</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>144</x>
+     <y>214</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>212</x>
+     <y>224</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spin4</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>slide4</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>229</x>
+     <y>224</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>146</x>
+     <y>230</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>slide5</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>spin5</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>171</x>
+     <y>269</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>216</x>
+     <y>273</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spin5</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>slide5</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>221</x>
+     <y>277</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>174</x>
+     <y>276</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>slide6</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>spin6</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>146</x>
+     <y>312</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>213</x>
+     <y>313</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spin6</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>slide6</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>225</x>
+     <y>310</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>151</x>
+     <y>315</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>slide7</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>spin7</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>174</x>
+     <y>352</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>218</x>
+     <y>355</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spin7</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>slide7</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>234</x>
+     <y>355</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>148</x>
+     <y>363</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spin8</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>slide8</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>218</x>
+     <y>402</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>172</x>
+     <y>402</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>slide8</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>spin8</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>189</x>
+     <y>400</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>222</x>
+     <y>400</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
